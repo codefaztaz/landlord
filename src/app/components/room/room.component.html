@@ -1,0 +1,241 @@
+<div class="container">
+    <div class="md-5">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Room Angular Component</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav  navbar-right">
+                    <span class="form-inline">
+                        <select 
+                            class="form-control" 
+                            #selectedLang 
+                            (change)="switchLangChild(selectedLang.value)">
+                          <option *ngFor="let language of translate.getLangs()" 
+                            [value]="language"
+                            [selected]="language === translate.currentLang">
+                            {{ language }}
+                          </option>
+                        </select>
+                      </span>
+
+                </ul>
+
+
+                <!-- <ul class="navbar-nav  navbar-right">
+                    <span class="form-inline">
+                        <select 
+                            class="form-control" 
+                            #selectedLang 
+                            (change)="switchLang(selectedLang.value)">
+                          <option *ngFor="let language of translate.getLangs()" 
+                            [value]="language"
+                            [selected]="language === translate.currentLang">
+                            {{ language }}
+                          </option>
+                        </select>
+                      </span>
+
+                </ul> -->
+                <!-- *ngIf="identity && identity.name"  -->
+                <!-- <ul class="navbar-nav  navbar-right">
+
+                <li class="nav-item dropdown" *ngIf="identity">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{ identity.name + ' ' + identity.surname }}
+      </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Mi perfil</a>
+                        <a class="dropdown-item" [routerLink]="'/ajustes'">Ajustes</a>
+                        <a class="dropdown-item" [routerLink]="['/logout/1']">logout</a>
+
+                    </div>
+                </li>
+            </ul> -->
+            </div>
+        </nav>
+
+
+
+    </div>
+    <div class="margin-carousel">
+
+        <h2> <a class="add-book" [routerLink]="['/home']">Back</a></h2>
+        <div class="row">
+            <div class="col-sm-7">
+                <!-- <div *ngIf="!translateEn; else tituloEs">
+                    <h4>{{ room.title }}</h4>
+                </div>
+                <ng-template #tituloEs>
+                    <h4>{{ room.titleEs }}</h4>
+                </ng-template> -->
+
+                <div *ngIf="translateEn == true; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>     <h4>{{ room.title }}</h4></ng-template>
+<ng-template #elseBlock> <h4>{{ room.titleEs }}</h4></ng-template>
+               
+                <ul class="ul-room">
+                    <div *ngIf="translateEn == true; then thenBlock2 else elseBlock2"></div>
+                    <ng-template #thenBlock2>     <h4>{{ room.location }}</h4></ng-template>
+                    <ng-template #elseBlock2> <h4>{{ room.locationEs }}</h4></ng-template>
+                    
+                    <!-- <div *ngIf="translateEn == true; else translateES">
+                        <li class="li-room">{{ room.location }} </li>
+                    </div>
+                    <ng-template #translateES>
+                        <li class="li-room">{{ room.locationEs }} </li>
+                    </ng-template>  -->
+                    <li class="li-room float-right">&#163; {{ room.price }} pm</li>
+                </ul>
+                <!-- Tabs navs
+                <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="ex2-tab-1" (click)="showPictures();" data-mdb-toggle="tab" role="tab" aria-controls="ex2-tabs-1" aria-selected="true">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i> Pictures
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="ex2-tab-2" (click)="showMap();" data-mdb-toggle="tab" role="tab" aria-controls="ex2-tabs-2" aria-selected="false"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                        google Maps</a
+                >
+                </li>
+            
+            </ul>
+            <!-- Tabs navs -->
+            
+            <!-- Tabs content -->
+            <div class="tab-content">
+                <div
+                class="tab-pane fade show active"
+                [ngClass]="{'hiden': flag, 'active': !flag}"
+                id="div1"
+                *ngIf="div1"
+                role="tabpanel"
+                aria-labelledby="ex2-tab-1"
+                >
+                <ngb-carousel>
+                    <ng-template ngbSlide>
+                        <div class="" *ngIf="!room.image1; else noimage1">
+                            <img class="img-list" src="{{ url + 'avatar/' + 'no-image.png'  }}" alt="">
+                        </div>
+                        <ng-template #noimage1>
+                            <img class="carousel-img" src="{{ url + 'avatar/' + room.image1 }}" alt="student">
+                        </ng-template>
+                       
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="" *ngIf="!room.image2; else noimage2">
+                            <img class="img-list" src="{{ url + 'avatar/' + 'no-image.png'  }}" alt="">
+                        </div>
+                        <ng-template #noimage2>
+                            <img class="carousel-img" src="{{ url + 'avatar/' + room.image2 }}" alt="student">
+                        </ng-template>
+                      
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="" *ngIf="!room.image3; else noimage3">
+                            <img class="img-list" src="{{ url + 'avatar/' + 'no-image.png'  }}" alt="">
+                        </div>
+                        <ng-template #noimage3>
+                            <img class="carousel-img" src="{{ url + 'avatar/' + room.image3 }}" alt="student">
+                        </ng-template>
+                    
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="" *ngIf="!room.image4; else noimage4">
+                            <img class="img-list" src="{{ url + 'avatar/' + 'no-image.png'  }}" alt="">
+                        </div>
+                        <ng-template #noimage4>
+                            <img class="carousel-img" src="{{ url + 'avatar/' + room.image4}}" alt="student">
+                        </ng-template>
+                  
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="" *ngIf="!room.image5; else noimage5">
+                            <img class="img-list" src="{{ url + 'avatar/' + 'no-image.png'  }}" alt="">
+                        </div>
+                        <ng-template #noimage5>
+                            <img class="carousel-img" src="{{ url + 'avatar/' + room.image5 }}" alt="student">
+                        </ng-template>
+                      
+                    </ng-template>
+                       <!-- [ngClass]="{'active':flag, 'hidden':!flag}" -->
+                </ngb-carousel>
+                </div>
+                <div
+                class="tab-pane fade show embed-responsive embed-responsive-4by3"
+             
+                [ngClass]="{'hiden': !flag, 'active': flag}"
+                *ngIf="div2"
+                role="tabpanel"
+                aria-labelledby="ex2-tab-1"
+                id="div2"
+                [innerHtml]="room.mapgoogle | safeHtml" 
+                >
+                
+                {{room.mapgoogle}}
+                </div>
+            
+            </div>
+            <!-- "language === 'en';
+            translateEn == true; -->
+            <div *ngIf="translateEn == true; then thenBlock3 else elseBlock3"></div>
+            <ng-template #thenBlock3>     <p><span class="bold-data">{{'RoomType' | translate}}</span> {{ room.roomtype }}</p></ng-template>
+            <ng-template #elseBlock3> <p><span class="bold-data">{{'RoomType' | translate}}</span>{{ room.roomtypeEs }}</p></ng-template>
+                    <!-- <p class="margin-carousel"><span class="bold-data">{{'RoomType' | translate}}</span> {{ room.roomtype }}</p> -->
+                    <p class=""><span class="bold-data">{{'Reference' | translate}}</span> {{ room.reference }}</p>
+                    <label class="bold-data" for="">{{'Description' | translate}}</label>
+                    <p class="">{{ room.description }}</p>
+        </div>
+        <div class="col-sm-5">
+            <h4 class="">{{ 'NameContact' | translate}}</h4>
+            <p class="">07666666666</p>
+            <p class="">info@student.com</p>
+            <form autocomplete="off" [formGroup]="forma" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">{{'Name' | translate}}</label>
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="{{'Name' |translate}}" formControlName="name" [class.is-invalid]="nameNoValido">
+                        <small *ngIf="nameNoValido" class="text-danger">
+                      write the name
+                    </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">{{ 'Message' | translate}}</label>
+                    <div class="col">
+                        <textarea class="form-control" rows="8" cols="80" placeholder="{{ 'Message' | translate}}" formControlName="message" [class.is-invalid]="messageNoValido">
+                           </textarea>
+                        <small *ngIf="messageNoValido" class="text-danger">
+                      write the message
+                    </small>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="col-2 col-form-label">&nbsp;</label>
+                    <div class="input-group col">
+                        <button type="submit " class="btn btn-outline-primary btn-block">
+                            {{ 'Send' | translate}}
+                  </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
